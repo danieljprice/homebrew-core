@@ -14,7 +14,7 @@ class Finufft < Formula
     # Check if MATLAB exists
     matlab_exists = !`which matlab`.empty?
 
-    args = std_cmake_args + %W[
+    args = %W[
       -DFINUFFT_BUILD_TESTS=ON
       -DFINUFFT_BUILD_EXAMPLES=ON
       -DFINUFFT_BUILD_FORTRAN=ON
@@ -24,7 +24,7 @@ class Finufft < Formula
       -DFINUFFT_BUILD_MATLAB=#{matlab_exists ? "ON" : "OFF"}
     ]
 
-    system "cmake", "-S", ".", "-B", "build", *args
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
 
     # Install test files to share directory after build but before install
